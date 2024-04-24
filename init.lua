@@ -780,6 +780,9 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    opts = {
+        transparent = true,
+    },
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
@@ -863,6 +866,42 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+
+  -- Harpoon2
+    {
+      'ThePrimeagen/harpoon',
+      branch = 'harpoon2',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        local harpoon = require 'harpoon'
+        require('harpoon'):setup()
+        vim.keymap.set('n', '<C-1>', function()
+            harpoon:list():add()
+          end)
+        vim.keymap.set('n', '<C-e>', function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end)
+        vim.keymap.set('n', '<C-h>', function()
+            harpoon:list():select(1)
+          end)
+         vim.keymap.set('n', '<C-t>', function()
+            harpoon:list():select(2)
+          end)
+         vim.keymap.set('n', '<C-n>', function()
+            harpoon:list():select(3)
+          end)
+         vim.keymap.set('n', '<C-s>', function()
+            harpoon:list():select(4)
+          end)
+
+          vim.keymap.set('n', '<C-S-P>', function()
+            harpoon:list():prev()
+          end)
+        vim.keymap.set('n', '<C-S-N>', function()
+            harpoon:list():next()
+          end)
+      end,
+    },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
